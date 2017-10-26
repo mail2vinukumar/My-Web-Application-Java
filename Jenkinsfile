@@ -3,9 +3,14 @@ pipeline {
     stages{
         stage('Prepare'){
             steps {
+                node {
+                    stage "Create build output"
                 echo 'Hello, JDK'
+                    
+                    stage "Create build output2"
                 sh 'ls -l'
                 sh 'date'
+                }
             }
         }
         stage('Build'){
