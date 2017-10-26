@@ -1,5 +1,5 @@
 def notifyBuild(String buildStatus = 'STARTED') {
-    		// build status of null means successful
+	    	// build status of null means successful
   			buildStatus =  buildStatus ?: 'SUCCESSFUL'
  
   			// Default values
@@ -36,8 +36,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
      			 body: details,
       			 to: 'vinu.z.kumar@gmail.com'
     		)
-  
-		}    
+} 
 pipeline { 
     agent any
     stages{
@@ -56,7 +55,8 @@ pipeline {
                     try {
 			echo 'Doing Build'    
 			//sh 'make' 
-			sh "cd /${workspace}/My-Web-Application-Java && mvn clean install -DskipTests=true"
+			    //cd /${workspace}/My-Web-Application-Java && 
+			sh "mvn clean install -DskipTests=true"
                         archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
 			    
                         notifyBuild('STARTED') 
