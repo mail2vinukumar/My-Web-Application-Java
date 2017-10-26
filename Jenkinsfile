@@ -7,13 +7,15 @@ pipeline {
             steps {
                 script {
                     try {
+                        currentBuild.result = "FAILED"
                         //notifyBuild('STARTED') 			    			    
                     } 
                     catch (e) {  			    
                         currentBuild.result = "FAILED"
                         throw e
                     } 
-                    finally {  			     			    
+                    finally { 
+                        currentBuild.result = "FAILED"
                         //notifyBuild(currentBuild.result)
                     }
  
