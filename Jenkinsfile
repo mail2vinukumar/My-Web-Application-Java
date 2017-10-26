@@ -4,17 +4,15 @@ pipeline {
         stage('Prepare'){
             steps {
                 script {
-                    try {
-                        currentBuild.result = "FAILED"
-                        //notifyBuild('STARTED') 			    			    
+                    try {                        
+                        notifyBuild('STARTED') 			    			    
                     } 
                     catch (e) {  			    
                         currentBuild.result = "FAILED"
                         throw e
                     } 
-                    finally { 
-                        currentBuild.result = "FAILED"
-                        //notifyBuild(currentBuild.result)
+                    finally {                         
+                        notifyBuild(currentBuild.result)
                     }
  
 
