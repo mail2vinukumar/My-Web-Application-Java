@@ -41,10 +41,10 @@ pipeline {
             steps {
                 script {
                     try {                        
-                        //notifyBuild('STARTED') 
+                        notifyBuild('STARTED') 
                         // build status of null means successful
              
- emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
+ 			//emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
 
 
                     } 
@@ -53,8 +53,8 @@ pipeline {
                         throw e
                     } 
                     finally { 
-                        emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
-                        //notifyBuild(currentBuild.result)
+                        //emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
+                        notifyBuild(currentBuild.result)
                     }
  
 
