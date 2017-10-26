@@ -1,7 +1,5 @@
-#!/bin/groovy
 pipeline { 
-    agent {none}
-
+    agent none
     stages{
         stage('Prepare'){
             steps {
