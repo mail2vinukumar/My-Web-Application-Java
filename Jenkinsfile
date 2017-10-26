@@ -9,7 +9,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
   			def summary = "${subject} (${env.BUILD_URL})"
   			def details = """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
     			<p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>"""
- 
+ 			/*
   			// Override default values based on build status
   			if (buildStatus == 'STARTED') {
   			  color = 'YELLOW'
@@ -26,7 +26,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
   			slackSend (color: colorCode, message: summary)
  
   			hipchatSend (color: color, notify: true, message: summary)
- 
+ 			*/
   			emailext (
      			 subject: subject,
      			 body: details,
@@ -40,6 +40,7 @@ pipeline {
         stage('Prepare'){
             steps {
                 script {
+			echo 'Doing prepare'
                     try {                        
                         notifyBuild('STARTED') 
                         // build status of null means successful
@@ -58,18 +59,7 @@ pipeline {
                     }
  
 
-                    /*
-                    try {                    
-                        //Send completion notification DL
-                        echo 'Sending email notification'                                                                                                   
-                        emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
-                    } catch(Exception err) {                    
-                        emailext(body: "Prepare Project - Job Failed ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", 
-                        subject: 'FAILURE ${JOB_NAME} - ${BUILD_NUMBER} is Failed, Error: ${err}', 
-                        to: 'vinu.z.kumar@gmail.com') 
-                        throw err
-                    }
-                    */
+                    
  
                     
                 }
@@ -77,17 +67,25 @@ pipeline {
         }
         stage('Build'){
             steps {
-                echo 'Hello, JDK'
+		    script {
+                	echo 'Doing Build'
+			ls -l
+			date
+		    }
             }            
         }
         stage('Test'){
             steps {
-                echo 'Hello, JDK'
+		    script {
+                	echo 'Doing Test'
+		    }
             }            
         }
         stage('Deploy'){
             steps {
-                echo 'Hello, JDK'
+   		    script {
+                	echo 'Doing Deploy'
+		    }
             }            
         }        
     }
