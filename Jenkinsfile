@@ -56,7 +56,7 @@ pipeline {
                     try {
 			echo 'Doing Build'    
 			//sh 'make' 
-			sh "cd ${workspace}/My-Web-Application-Java && mvn clean install -DskipTests=true"
+			sh "cd /${workspace}/My-Web-Application-Java && mvn clean install -DskipTests=true"
                         archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
 			    
                         notifyBuild('STARTED') 
