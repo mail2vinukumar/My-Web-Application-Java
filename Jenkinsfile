@@ -3,13 +3,14 @@ def notifyBuild(String buildStatus = 'STARTED') {
   			buildStatus =  buildStatus ?: 'SUCCESSFUL'
  
   			// Default values
-  			def colorName = 'RED'
-  			def colorCode = '#FF0000'
+  			//def colorName = 'RED'
+  			//def colorCode = '#FF0000'
   			def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-  			def summary = "${subject} (${env.BUILD_URL})"
-  			def details = """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-    			<p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>"""
- 			/*
+	                    
+  			//def summary = "${subject} (${env.BUILD_URL})"
+  			def details = """<p>${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p><p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>"""
+ 			
+	                 /*
   			// Override default values based on build status
   			if (buildStatus == 'STARTED') {
   			  color = 'YELLOW'
@@ -27,10 +28,13 @@ def notifyBuild(String buildStatus = 'STARTED') {
  
   			hipchatSend (color: color, notify: true, message: summary)
  			*/
-  			emailext (
+	                //emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", 
+	                //          subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', 
+			//         to: 'vinu.z.kumar@gmail.com') 
+  			emailext (		    
      			 subject: subject,
      			 body: details,
-      			to: 'vinu.z.kumar@gmail.com'
+      			 to: 'vinu.z.kumar@gmail.com'
     		)
   
 		}    
@@ -41,37 +45,29 @@ pipeline {
             steps {
                 script {
 			echo 'Doing prepare'
-                    try {                        
-                        notifyBuild('STARTED') 
-                        // build status of null means successful
-             
- 			//emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
-
-
-                    } 
-                    catch (e) {  			    
-                        currentBuild.result = "FAILED"
-                        throw e
-                    } 
-                    finally { 
-                        //emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
-                        notifyBuild(currentBuild.result)
-                    }
- 
-
-                    
- 
-                    
+			checkout scm                                  
                 }
             }
         }
         stage('Build'){
             steps {
-		    script {
-                	echo 'Doing Build'
-			ls -l
-			date
-		    }
+		script {
+                    echo 'Doing Build'
+                    try {                        
+                        notifyBuild('STARTED') 
+                        // build status of null means successful
+             
+ 			//emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
+                    } 
+                    catch (e) {  			    
+                        currentBuild.result = "FAILED"
+                        throw e
+                    } 
+                    finally {                         
+                        notifyBuild(currentBuild.result)
+                    }			    
+		
+		}
             }            
         }
         stage('Test'){
