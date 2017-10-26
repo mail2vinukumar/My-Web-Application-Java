@@ -4,6 +4,13 @@ pipeline {
         stage('Prepare'){
             steps {
                 echo 'Hello, JDK'
+                sh 'ls -l'
+                sh 'date'
+            }
+            steps {
+                echo 'Hello, JDK'
+                sh 'ls -l'
+                sh 'date'
             }
         }
         stage('Build'){
