@@ -1,18 +1,7 @@
 #!/bin/groovy
 pipeline { 
     agent {none}
-    define {
-   	def notifyBuild(String buildStatus = 'STARTED') {
 
- 
-  			emailext (
-     			 subject: subject,
-     			 body: details,
-      			 to: 'vinu.z.kumar@gmail.com'
-    			)
-  
-	}
-    }
     stages{
         stage('Prepare'){
             steps {
