@@ -5,11 +5,9 @@ pipeline {
             steps {
                 node {
                     stage "Create build output"
-                echo 'Hello, JDK'
+                    echo 'Hello, JDK'
+                    stage "Create build outputc"
                     
-                    stage "Create build output2"
-                sh 'ls -l'
-                sh 'date'
                 }
             }
         }
