@@ -39,7 +39,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
   
 		}    
 pipeline { 
-    agent none
+    agent any
     stages{
         stage('Prepare'){
             steps {
@@ -53,7 +53,11 @@ pipeline {
             steps {
 		script {
                     echo 'Doing Build'
-                    try {                        
+                    try {
+			    
+			sh 'make' 
+                        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
+			    
                         notifyBuild('STARTED') 
                         // build status of null means successful
              
@@ -74,14 +78,23 @@ pipeline {
             steps {
 		    script {
                 	echo 'Doing Test'
+			sh 'make check || true' 
+                        junit '**/target/*.xml'
 		    }
             }            
         }
         stage('Deploy'){
+	    when {
+                  expression {
+                      currentBuild.result == null || currentBuild.result == 'SUCCESS'
+		  }
+            }
             steps {
    		    script {
                 	echo 'Doing Deploy'
+			    sh 'make publish'
 		    }
+             
             }            
         }        
     }
