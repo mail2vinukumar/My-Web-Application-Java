@@ -1,5 +1,5 @@
 pipeline { 
-    agent none
+    agent {none}
     define {
    	def notifyBuild(String buildStatus = 'STARTED') {
     		// build status of null means successful
@@ -33,10 +33,10 @@ pipeline {
   			emailext (
      			 subject: subject,
      			 body: details,
-      			to: 'vinu.z.kumar@gmail.com'
-    		)
+      			 to: 'vinu.z.kumar@gmail.com'
+    			)
   
-		}
+	}
     }
     stages{
         stage('Prepare'){
@@ -87,6 +87,4 @@ pipeline {
             }            
         }        
     }
-
-
 }
