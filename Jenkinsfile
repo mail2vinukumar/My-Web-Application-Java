@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('Prepare'){
             steps {
-                node {
+                script {
                     stage "Create build output"
                     echo 'Hello, JDK'
                     stage "Create build outputc"
