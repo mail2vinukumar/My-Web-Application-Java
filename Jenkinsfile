@@ -6,7 +6,7 @@ pipeline {
                 script {
                     
                     echo 'Hello, JDK'
-                    sh 'ls-l'
+                    sh "ls-l"
                     
                 }
             }
