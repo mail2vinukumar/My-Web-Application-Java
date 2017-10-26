@@ -45,17 +45,18 @@ pipeline {
             steps {
                 script {
 			echo 'Doing prepare'
-			checkout scm                                  
+			checkout scm 
+			//git url: 'git://example.com/amazing-project.git', branch: 'master'
                 }
             }
         }
         stage('Build'){
             steps {
-		script {
-                    echo 'Doing Build'
+		script {                    
                     try {
-			    
-			sh 'make' 
+			echo 'Doing Build'    
+			//sh 'make' 
+			sh "cd ${workspace}/My-Web-Application-Java && mvn clean install -DskipTests=true"
                         archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
 			    
                         notifyBuild('STARTED') 
