@@ -6,13 +6,16 @@ pipeline {
                 script {
                     try {
                         //notifyBuild('STARTED') 
+			    echo 'Sending email notification'  
 			    currentBuild.result = "FAILED"
                     } 
                     catch (e) {  
+			    echo 'Sending email notification'  
                         currentBuild.result = "FAILED"
                         throw e
                     } 
                     finally {  
+			    echo 'Sending email notification'  
 			    currentBuild.result = "FAILED"
                         //notifyBuild(currentBuild.result)
                     }
