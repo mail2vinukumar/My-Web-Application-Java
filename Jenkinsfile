@@ -1,6 +1,6 @@
-def notifyBuild(String buildStatus = 'STARTED') {
+def notifyBuild(String buildStatus) {
 	    	// build status of null means successful
-  			buildStatus =  buildStatus ?: 'SUCCESSFUL'
+  			//buildStatus =  buildStatus ?: 'SUCCESSFUL'
  
   			// Default values
   			//def colorName = 'RED'
@@ -37,8 +37,11 @@ def notifyBuild(String buildStatus = 'STARTED') {
       			 to: 'vinu.z.kumar@gmail.com'
     		)
 } 
+
+
 pipeline { 
     agent any
+	
     stages{
         stage('Prepare'){
             steps {
@@ -56,13 +59,10 @@ pipeline {
 			echo 'Doing Build'    
 			//sh 'make' 
 			    //cd /${workspace}/My-Web-Application-Java && 
-			sh "mvn clean install"
+			//sh "mvn clean install"
                         //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
 			    
-                        notifyBuild('STARTED') 
-                        // build status of null means successful
-             
- 			//emailext(body: "Prepare Project - Success ${JOB_NAME} - ${BUILD_NUMBER} Build URL - ${BUILD_URL}", subject: 'Build ${JOB_NAME} - ${BUILD_NUMBER} is Success', to: 'vinu.z.kumar@gmail.com') 
+                        currentBuild.result = "SUCCESSFUL"                                      			
                     } 
                     catch (e) {  			    
                         currentBuild.result = "FAILED"
@@ -94,8 +94,7 @@ pipeline {
    		    script {
                 	echo 'Doing Deploy'
 			    //sh 'make publish'
-		    }
-             
+		    }             
             }            
         }        
     }
