@@ -56,8 +56,8 @@ pipeline {
 			echo 'Doing Build'    
 			//sh 'make' 
 			    //cd /${workspace}/My-Web-Application-Java && 
-			sh "mvn clean install -DskipTests=true"
-                        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
+			sh "mvn clean install"
+                        //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
 			    
                         notifyBuild('STARTED') 
                         // build status of null means successful
@@ -79,8 +79,8 @@ pipeline {
             steps {
 		    script {
                 	echo 'Doing Test'
-			sh 'make check || true' 
-                        junit '**/target/*.xml'
+			//sh 'make check || true' 
+                        //junit '**/target/*.xml'
 		    }
             }            
         }
@@ -93,7 +93,7 @@ pipeline {
             steps {
    		    script {
                 	echo 'Doing Deploy'
-			    sh 'make publish'
+			    //sh 'make publish'
 		    }
              
             }            
