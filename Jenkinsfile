@@ -93,7 +93,7 @@ pipeline {
             steps {
    		    script {
                 	echo 'Doing Deploy'
-			sh 'make publish'
+			//sh 'make publish'
 		    }             
             }            
         }        
