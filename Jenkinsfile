@@ -62,7 +62,7 @@ pipeline {
 			//sh "mvn clean install"
                         //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
 			    
-                        currentBuild.result = "SUCCESSFUL"                                      			
+                        currentBuild.result = "SUCCESS"                                      			
                     } 
                     catch (e) {  			    
                         currentBuild.result = "FAILED"
@@ -87,13 +87,13 @@ pipeline {
         stage('Deploy'){
 	    when {
                   expression {
-                      currentBuild.result == null || currentBuild.result == 'SUCCESSFUL'
+                      currentBuild.result == null || currentBuild.result == 'SUCCESS'
 		  }
             }
             steps {
    		    script {
                 	echo 'Doing Deploy'
-			    //sh 'make publish'
+			sh 'make publish'
 		    }             
             }            
         }        
