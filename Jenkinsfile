@@ -1,4 +1,4 @@
-def notifyBuild(String buildStatus) {
+def notifyBuild(String buildStatus) { 
 	    	// build status of null means successful
   			//buildStatus =  buildStatus ?: 'SUCCESSFUL'
  
